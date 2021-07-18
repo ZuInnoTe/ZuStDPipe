@@ -1,12 +1,15 @@
 # Disclaimer
 This repository is currently a pre-alpha version. It is aimed at my own personal research and not suitable for any purpose. There will be a mature alpha version that can be used by others. Until then the source code, the interfaces, the modules can change arbitrarily without notice.
 # Introduction
-
 ZuSearch (Zukunft Search) is a library and ecosystem for lightweight highly modular search for embedded systems to large scale clusters.
 The core of ZuSearch is highly modular and users may decide which module to include depending on the system as well as usage context. 
 Due to the modularity it can run  small embedding devices up to large scale clusters consisting of millions of nodes. Furthermore, thanks to the modularity you can
 integrate any search, such as traditional one using inverted index or search indexes based on large scale neural models for text and/or images, for any type of document, such as text or images.
 It is written in Rust for secure, multi-platform and low resource usage application. 
+
+One important aspect of modularization is that it is easier to get rid of modules not needed anymore or to refactor the software. The objective here is that the software does not get bloated more and more, but with each release functionality can simply be removed. A hope is that in the future it is able to run on very small devices that are decades old and for which no more sustainable replacement is possible.
+
+ZuSearch aims at being much different from other search libraries, such as [Lucene](https://lucene.apache.org/) or [Tantivy](https://github.com/tantivy-search/tantivy), by being highly modular, very lightweight for any type of device and enabling search beyond traditional indexing using logic reasoning or natural languages processing (NLP) models. 
 # Use cases
 ## Search Encrypted Cloud Storage
 Tools, such as [Cryptomator](https://cryptomator.org/) allow encrypting your files in the cloud and decrypting them locally on any device. However, searching those files locally 
