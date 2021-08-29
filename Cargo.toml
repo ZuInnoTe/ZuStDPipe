@@ -1,0 +1,2 @@
+[workspace]
+members = ["zusearch", "zus-cli"]
