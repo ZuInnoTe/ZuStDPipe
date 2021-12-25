@@ -5,7 +5,7 @@ ZuSearch (Zukunft Search) is a library and ecosystem for lightweight highly modu
 The core of ZuSearch is highly modular and users may decide which module to include depending on the system as well as usage context. 
 Due to the modularity it can run  small embedding devices up to large scale clusters consisting of millions of nodes. Furthermore, thanks to the modularity you can
 integrate any search, such as traditional one using inverted index or search indexes based on large scale neural models for text and/or images, for any type of document, such as text or images.
-It is written in Rust for secure, multi-platform and low resource usage application. 
+It is written in Rust for safe, multi-platform and low resource usage applications. The WebAssembly (WASM)/WASM System Interface (WASI) ecosystem provides a foundation to run them securely everywhere.
 
 One important aspect of modularization is that it is easier to get rid of modules not needed anymore or to refactor the software. The objective here is that the software does not get bloated more and more, but with each release functionality can simply be removed. A hope is that in the future it is able to run on very small devices that are decades old and for which no more sustainable replacement is possible.
 
