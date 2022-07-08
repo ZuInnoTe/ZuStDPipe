@@ -31,12 +31,10 @@ jobs:
      - name: Configure Rust and display version
        run: |
            rustup default $RUSTUP_TOOLCHAIN
-           rustup which cargo
-           rustup target list
-           rustup toolchain list
            rustc --version
            cargo --version
      - name: Build Zusearch Wasm32-Wasi
        run: | 
+          rustup default $RUSTUP_TOOLCHAIN
           cd zusearch
           cargo build --target wasm32-wasi
