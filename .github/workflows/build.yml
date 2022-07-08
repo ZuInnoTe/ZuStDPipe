@@ -35,8 +35,5 @@ jobs:
            cargo --version
      - name: Build Zusearch Wasm32-Wasi
        run: | 
-          rustup target list
-          rustup which cargo
-          whereis cargo
           cd zusearch
           cargo build --target wasm32-wasi
