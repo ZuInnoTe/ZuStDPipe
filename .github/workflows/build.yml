@@ -30,7 +30,7 @@ jobs:
               rustup target add wasm32-unknown-unknown --toolchain $RUSTUP_TOOLCHAIN
      - name: Configure Rust and display version
        run: |
-           echo "PATH=$(dirname $(rustup which cargo)):$PATH" >> $env:GITHUB_ENV
+           echo "PATH=$(dirname $(rustup which cargo)):$PATH" >> $GITHUB_ENV
            rustc --version
            cargo --version
      - name: Build Zusearch Wasm32-Wasi
