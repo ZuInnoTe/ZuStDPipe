@@ -32,3 +32,7 @@ jobs:
        run: |
            rustc --version
            cargo --version
+     - name: Build Zusearch Wasm32-Wasi
+       run: | 
+          cd zusearch
+          cargo build --target wasm32-wasi
