@@ -23,13 +23,15 @@ jobs:
        if: steps.cache-rust.outputs.cache-hit != 'true'
        run: |
               mkdir -p $RUSTUP_HOME
-              mkdir -p §CAROGO_HOME
+              mkdir -p $CARGO_HOME
               curl https://sh.rustup.rs -sSf | sh -s -- -y
               rustup install $RUST_VERSION
               rustup target add wasm32-wasi
               rustup target add wasm32-unknown-unknown
-     - name: Display version
+     - name: Configure Rust and display version
        run: |
+           export PATH=$RUSTUP_HOME/:$PATH
+           rustup default $RUST_VERSION
            rustc --version
            cargo --version
      - name: Build Zusearch Wasm32-Wasi
