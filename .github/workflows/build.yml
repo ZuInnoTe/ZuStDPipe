@@ -30,8 +30,10 @@ jobs:
               rustup target add wasm32-unknown-unknown
      - name: Configure Rust and display version
        run: |
-           export PATH=$RUSTUP_HOME/:$PATH
            rustup default $RUSTUP_TOOLCHAIN
+           rustup which cargo
+           rustup target list
+           rustup toolchain list
            rustc --version
            cargo --version
      - name: Build Zusearch Wasm32-Wasi
