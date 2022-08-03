@@ -10,6 +10,13 @@ It is written in Rust for safe, multi-platform and low resource usage applicatio
 One important aspect of modularization is that it is easier to get rid of modules not needed anymore or to refactor the software. The objective here is that the software does not get bloated more and more, but with each release functionality can simply be removed. A hope is that in the future it is able to run on very small devices that are decades old and for which no more sustainable replacement is possible.
 
 ZuSearch aims at being much different from other search libraries, such as [Lucene](https://lucene.apache.org/) or [Tantivy](https://github.com/tantivy-search/tantivy), by being highly modular, very lightweight for any type of device and enabling search beyond traditional indexing using logic reasoning or natural languages processing (NLP) models. 
+## Code
+The code is available under:
+* Codeberg (a non-commercial European hosted Git for Open Source): https://codeberg.org/ZuInnoTe/zusearch
+* Github (an US hosted commercial Git platform): https://github.com/ZuInnoTe/zusearch
+
+## License
+You can choose to either use [EUPL-1.2](./LICENSE-EUPL-1.2) ([Web](https://spdx.org/licenses/EUPL-1.2.html)) or [Apache-2.0](./LICENSE-Apache-2.0) ([Web](https://spdx.org/licenses/Apache-2.0.html)) license.
 # Use cases
 ## Search Encrypted Cloud Storage
 Tools, such as [Cryptomator](https://cryptomator.org/) allow encrypting your files in the cloud and decrypting them locally on any device. However, searching those files locally 
