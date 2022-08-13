@@ -33,7 +33,7 @@ jobs:
            echo "PATH=$(dirname $(rustup which cargo)):$PATH" >> $GITHUB_ENV
            rustc --version
            cargo --version
-     - name: Build Zusearch Wasm32-Wasi
+     - name: Build Zusearch library
        run: | 
           cd zusearch
-          cargo build  release
+          cargo build --release
