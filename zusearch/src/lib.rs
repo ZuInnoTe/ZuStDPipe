@@ -2,7 +2,7 @@
 
 pub mod app;
 pub mod modules;
-pub mod storage;
+//pub mod storage;
 
 pub fn version() -> String {
     return env!("CARGO_PKG_VERSION").to_string();

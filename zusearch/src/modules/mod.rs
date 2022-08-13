@@ -4,6 +4,5 @@
 pub mod library;
 
 // module
-pub mod api;
 pub mod interface;
 pub mod manager;
