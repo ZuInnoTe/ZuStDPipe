@@ -19,8 +19,16 @@ impl interface::Library for WASMLibrary {
     fn exec_func(
         &mut self,
         name: String,
-        serialized_data: &Vec<u8>,
+        serialized_data: Vec<u8>,
     ) -> Result<Vec<u8>, interface::LibraryInstanceError> {
+        // make serialized data available to function
+        // call function
+        let func_def = &self.instance
+        .get_func(&mut self.store, &name)
+        .expect(format!("`{}` was not an exported function",name).as_str());
+        let func_validated = func_def.typed::<(), u64>(&self.store).unwrap();
+        let result = func_validated.call(&mut self.store, ()).unwrap();
+        // provide result back
         let result: Vec<u8> = Vec::new();
         Ok(result)
     }
@@ -121,7 +129,7 @@ impl interface::LibraryManager<WASMLibrary> for WASMLibraryManager {
 mod tests {
     use crate::modules::library::interface;
 
-    const simple_wat_path: &str = "tests/data/modules/library/wasm/simple.wat";
+    const SIMPLE_WAT_PATH: &str = "tests/data/modules/library/wasm/simple.wat";
 
     #[test]
     // Test a minimal valid WASM app
@@ -129,11 +137,30 @@ mod tests {
         use crate::modules::library::interface::LibraryManager;
         use crate::modules::library::wasm::WASMLibraryManager;
         // Create a new library manager
-        let mut libmgr: crate::modules::library::wasm::WASMLibraryManager =
+        let mut libmgr: WASMLibraryManager =
             crate::modules::library::wasm::WASMLibraryManager::new();
         // try to load a test
-        let result_simple_wat_library = libmgr.get_instance(simple_wat_path.to_string());
-        assert_eq!(result_simple_wat_library?.path, simple_wat_path);
+        let result_simple_wat_library = libmgr.get_instance(SIMPLE_WAT_PATH.to_string());
+        assert_eq!(result_simple_wat_library?.path, SIMPLE_WAT_PATH);
+        Ok(())
+    }
+
+    #[test]
+    // Test calling a minimal function
+    fn test_new_minimal_call() -> Result<(), interface::LibraryDefinitionError> {
+        use crate::modules::library::interface::Library;
+        use crate::modules::library::interface::LibraryManager;
+        use crate::modules::library::wasm::WASMLibraryManager;
+        use crate::modules::library::wasm::WASMLibrary;
+        // Create a new library manager
+        let mut libmgr: WASMLibraryManager =
+            crate::modules::library::wasm::WASMLibraryManager::new();
+        // try to load a test
+        let  result_simple_wat_library = &mut *libmgr.get_instance(SIMPLE_WAT_PATH.to_string())?;
+        assert_eq!(&result_simple_wat_library.path, SIMPLE_WAT_PATH);
+        // try to call function
+        let param: Vec<u8> = Vec::new();
+        let  result_func = result_simple_wat_library.exec_func("simple".to_string(), param);
         Ok(())
     }
 }

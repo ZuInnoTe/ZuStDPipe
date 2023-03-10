@@ -12,18 +12,18 @@ edition = "2021"
 crate-type=["cdylib","rlib"]
 
 [dependencies]
-arrow = { version = "25.0.0", default-features = false, features = ["ipc"] }
+arrow = { version = "33.0.0", default-features = false, features = ["ipc"] }
 bincode = {version = "1.3.3"}
 bloomfilter = {version = "1.0.9"}
-flate2 = { version = "1.0.24"}
+flate2 = { version = "1.0.25"}
 log4rs = { version = "1.2.0"}
 log = { version = "0.4.17", features = ["std"] }
-regex = { version = "1.6.0"}
-rust_decimal = { version = "1.26.1"}
-serde = {version="1.0.147", features = ["derive"] }
-serde_yaml = {version = "0.8.26"}
-thiserror = {version = "1.0.37"}
-time = {version = "0.3.16", features = ["macros"]}
-tokio = { version = "1.21.1"}
-wasmtime = { version = "2.0.1"}
-wasmtime-wasi = { version = "2.0.1"}
+regex = { version = "1.7.1"}
+rust_decimal = { version = "1.28.0"}
+serde = {version="1.0.152", features = ["derive"] }
+serde_yaml = {version = "0.9.17"}
+thiserror = {version = "1.0.38"}
+time = {version = "0.3.17", features = ["macros"]}
+tokio = { version = "1.25.0"}
+wasmtime = { version = "6.0.1"}
+wasmtime-wasi = { version = "6.0.1"}

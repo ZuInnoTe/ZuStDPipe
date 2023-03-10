@@ -1,7 +1,7 @@
 name: zusearch-build
 on: [push]
 env:
-    RUSTUP_TOOLCHAIN: "1.65"
+    RUSTUP_TOOLCHAIN: "1.68.0"
     RUSTUP_HOME: "./rust/rustup"
     CARGO_HOME: "./rust/cargo"
 

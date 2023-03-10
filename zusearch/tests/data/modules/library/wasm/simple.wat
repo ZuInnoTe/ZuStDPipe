@@ -1,4 +1,4 @@
 (module
-  (func (result i64)
+  (func $simple (export "simple") (result i64)
     i64.const 1
   ))
