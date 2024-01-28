@@ -6,7 +6,7 @@ env:
     CARGO_HOME: "./rust/cargo"
 
 jobs:
-  build-zusearch-lib:
+  build-zustdpipe-lib:
     runs-on: ubuntu-latest
     steps:
      - name: Checkout repository
