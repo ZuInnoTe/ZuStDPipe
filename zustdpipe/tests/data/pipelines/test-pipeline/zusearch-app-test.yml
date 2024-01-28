@@ -1,0 +1,12 @@
+general:
+  name: "ZuSearch Example App"
+cache:
+  - maincache:
+    module: libzusearch-module-cache-caffeine
+pipeline:
+   - example_text_pipeline:
+      threads: 2
+      steps: 
+        - echo:
+          config:
+            text: "Hello World"

@@ -1,0 +1,13 @@
+[package]
+name = "zustdpipe-modules-library"
+version = "0.1.0"
+authors = ["Jörn Franke <jornfranke@gmail.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type=["rlib","dylib"]
+
+[dependencies]
+arrow = { version = "44.0.0", default-features = false, features = ["ipc"] }

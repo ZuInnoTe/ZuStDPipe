@@ -1,0 +1,26 @@
+general:
+  name: "ZuStdPipe Example App"
+  app_definition_version: 0
+modules:
+  wasm:
+     module_path_base: ["../zustdp-modules-common/zustdp-module-process-echo/target/wasm32-wasi/release"]
+jobs:
+  example_job:
+    pipeline: example_1
+    threads: 2
+    trigger: manual
+pipelines:
+    example_1:
+        processs: 
+          - echo_test:
+              module: 
+                name: zustdp_module_process_echo.wasm
+                type: wasm
+              parameters:
+                - text: This is a test
+          - echo_hello_world:
+              module: 
+                name: zustdp_module_process_echo.wasm
+                type: wasm
+              parameters:
+                - text: Hello, World!

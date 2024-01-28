@@ -1,2 +1,2 @@
 [workspace]
-members = ["zusearch", "zus-cli"]
+members = ["zustdpipe-modules-library","zustdpipe", "zustdp-cli"]
