@@ -2,9 +2,9 @@
 
 pub mod apps;
 pub mod error;
-pub mod pipeline;
-pub mod modules;
 pub mod jobs;
+pub mod modules;
+pub mod pipeline;
 
 pub fn version() -> String {
     return env!("CARGO_PKG_VERSION").to_string();

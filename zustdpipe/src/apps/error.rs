@@ -1,5 +1,5 @@
 use std::borrow::Cow;
-use std::{fmt};
+use std::fmt;
 
 /// Error in case the definition of an App is invalid
 

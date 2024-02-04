@@ -7,7 +7,7 @@ The key advantage is that you can address data flows instead of control flows. D
 
 The core of ZuStDPipe is highly modular and users may decide which module to include depending on the system as well as usage context. 
 Due to the modularity it can run  small embedding devices up to large scale clusters consisting of millions of nodes. Furthermore, thanks to the modularity you can
-integrate any stateful data pipelinees, such as search indexes for any type of document, such as text or images. However, they are also very suitable for structured data processing.
+integrate any stateful data pipelinees, such as search indexes for any type of document, such as text or images. However, they are also very jsuitable for structured data processing.
 
 It is written in Rust for safe, multi-platform and low resource usage applications. The WebAssembly (WASM)/WASM System Interface (WASI) ecosystem provides the foundation to run them securely everywhere.
 

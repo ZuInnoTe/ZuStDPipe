@@ -96,7 +96,7 @@ pub fn convert_raw_memory_to_arrow(    raw_memory_offset: *mut u32,
         };
         match StreamReader::try_new(unsafe{std::slice::from_raw_parts(raw_memory_offset as *mut u8, raw_memory_size as usize)}, None) {
             Ok(reader) => Some(reader),
-            Err(error) => None
+            Err(_error) => None
         }
 }
 

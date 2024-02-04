@@ -8,11 +8,10 @@ pub struct LibraryDefinition {
 }
 
 /// Error in case of an issue with a Library Definition
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone)]
 pub enum LibraryDefinitionError {
-    ModuleSpecificError(GeneralError)
+    ModuleSpecificError(GeneralError),
 }
-
 
 /// Error in case of an issue with a Library Instance
 #[derive(Debug, Clone)]

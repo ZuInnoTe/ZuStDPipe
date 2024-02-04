@@ -20,21 +20,21 @@ impl interface::Library for WASMLibrary {
     fn exec_func(
         &mut self,
         name: String,
-        serialized_data: Vec<u8>,
+        _serialized_data: Vec<u8>,
     ) -> Result<Vec<u8>, interface::LibraryInstanceError> {
         // make serialized data available to function
         // call function
-        let func_def = &self.instance
-        .get_func(&mut self.store, &name)
-        .expect(format!("`{}` was not an exported function",name).as_str());
+        let func_def = &self
+            .instance
+            .get_func(&mut self.store, &name)
+            .expect(format!("`{}` was not an exported function", name).as_str());
         let func_validated = func_def.typed::<(), u64>(&self.store).unwrap();
-        let result = func_validated.call(&mut self.store, ()).unwrap();
+        let _result = func_validated.call(&mut self.store, ()).unwrap();
         // provide result back
         let result: Vec<u8> = Vec::new();
         Ok(result)
     }
 }
-
 
 pub struct WASMLibraryManager {
     loaded_modules: HashMap<String, Module>,
@@ -70,12 +70,11 @@ impl interface::LibraryManager<WASMLibrary> for WASMLibraryManager {
                     }
                     Err(err) => {
                         return Err(interface::LibraryDefinitionError::ModuleSpecificError(
-                            GeneralError::ErrorMessage(
-                            format!(
+                            GeneralError::ErrorMessage(format!(
                                 "WASM Library Manager. Error during loading module: {}",
                                 err.to_string()
-                            ))),
-                        )
+                            )),
+                        ))
                     }
                 }
             }
@@ -85,10 +84,10 @@ impl interface::LibraryManager<WASMLibrary> for WASMLibraryManager {
         // Link WASI into the module
         let mut linker = Linker::new(&self.engine);
         match wasmtime_wasi::add_to_linker(&mut linker, |state: &mut WASMState| &mut state.wasi) {
-            Ok(x) => (),
+            Ok(_x) => (),
             Err(err) => {
-                return Err(interface::LibraryDefinitionError::ModuleSpecificError(GeneralError::ErrorMessage(
-                    format!(
+                return Err(interface::LibraryDefinitionError::ModuleSpecificError(
+                    GeneralError::ErrorMessage(format!(
                         "WASM Library Manager. Error adding WASI to Linker: {}",
                         err.to_string()
                     )),
@@ -98,8 +97,8 @@ impl interface::LibraryManager<WASMLibrary> for WASMLibraryManager {
         let wasi = match WasiCtxBuilder::new().inherit_stdio().inherit_args() {
             Ok(x) => x.build(),
             Err(err) => {
-                return Err(interface::LibraryDefinitionError::ModuleSpecificError(GeneralError::ErrorMessage(
-                    format!(
+                return Err(interface::LibraryDefinitionError::ModuleSpecificError(
+                    GeneralError::ErrorMessage(format!(
                         "WASM Library Manager. Error creating WASI context: {}",
                         err.to_string()
                     )),
@@ -108,10 +107,10 @@ impl interface::LibraryManager<WASMLibrary> for WASMLibraryManager {
         };
         let mut store = Store::new(&self.engine, WASMState { wasi: wasi });
         match linker.module(&mut store, "", &module) {
-            Ok(x) => (),
+            Ok(_x) => (),
             Err(err) => {
-                return Err(interface::LibraryDefinitionError::ModuleSpecificError(GeneralError::ErrorMessage(
-                    format!(
+                return Err(interface::LibraryDefinitionError::ModuleSpecificError(
+                    GeneralError::ErrorMessage(format!(
                         "WASM Library Manager. Error linking WASI context: {}",
                         err.to_string()
                     )),
@@ -154,16 +153,15 @@ mod tests {
         use crate::modules::library::interface::Library;
         use crate::modules::library::interface::LibraryManager;
         use crate::modules::library::wasm::WASMLibraryManager;
-        use crate::modules::library::wasm::WASMLibrary;
         // Create a new library manager
         let mut libmgr: WASMLibraryManager =
             crate::modules::library::wasm::WASMLibraryManager::new();
         // try to load a test
-        let  result_simple_wat_library = &mut *libmgr.get_instance(&SIMPLE_WAT_PATH.to_string())?;
+        let result_simple_wat_library = &mut *libmgr.get_instance(&SIMPLE_WAT_PATH.to_string())?;
         assert_eq!(&result_simple_wat_library.path, SIMPLE_WAT_PATH);
         // try to call function
         let param: Vec<u8> = Vec::new();
-        let  result_func = result_simple_wat_library.exec_func("simple".to_string(), param);
+        let result_func = result_simple_wat_library.exec_func("simple".to_string(), param);
         Ok(())
     }
 }

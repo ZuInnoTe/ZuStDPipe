@@ -1,3 +1,5 @@
+pub mod interface;
+pub mod manager;
 /**
  Copyright 2021 ZuInnoTe (Jörn Franke) <zuinnote@gmail.com>
 
@@ -13,7 +15,4 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 */
-
 pub mod scheduler;
-pub mod interface;
-pub mod manager;

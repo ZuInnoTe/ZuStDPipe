@@ -5,8 +5,7 @@ use serde_yaml;
 use std::io;
 
 use super::error;
-use super::interface::{AppManager, AppList, AppDefinition};
-
+use super::interface::{AppDefinition, AppList, AppManager};
 
 /// Managing the definition of apps in-memory
 impl AppManager for AppList {
@@ -105,7 +104,8 @@ mod tests {
         // Load minimal app definition into memory
         let mut appmgr: crate::apps::manager::AppList = crate::apps::manager::AppManager::new();
         let result = appmgr.add(str_reader).unwrap_err().to_string();
-        let expected = "Invalid App definition. Error in Yaml file: missing field `general`".to_string();
+        let expected =
+            "Invalid App definition. Error in Yaml file: missing field `general`".to_string();
         assert_eq!(expected, result);
     }
 }

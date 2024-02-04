@@ -12,18 +12,14 @@ pub mod validate;
 #[derive(StructOpt, Debug)]
 enum Command {
     Validate,
-    Run(RunParameter)
+    Run(RunParameter),
 }
 
-#[derive(StructOpt,Debug)]
+#[derive(StructOpt, Debug)]
 struct RunParameter {
-    #[structopt(short="-n",long="--name")]
-    name: String
+    #[structopt(short = "-n", long = "--name")]
+    name: String,
 }
-
-
-
-
 
 /// Command line arguments
 
@@ -47,28 +43,26 @@ fn main() -> ExitCode {
     println!("Operation: {:?}", &args.command);
     match &args.command {
         Command::Validate => {
-             println!("Loading app definition: {:?}", &args.application_definition_file);
-             match validate_application_definition_file(&args.application_definition_file) {
-                Ok(()) =>     ExitCode::from(0),
+            println!(
+                "Loading app definition: {:?}",
+                &args.application_definition_file
+            );
+            match validate_application_definition_file(&args.application_definition_file) {
+                Ok(()) => ExitCode::from(0),
                 Err(error) => {
-                    println!("{:#?}",error);
+                    println!("{:#?}", error);
                     ExitCode::from(1)
                 }
-             }
-
-        },
+            }
+        }
         Command::Run(parameter) => {
             match run_job(&args.application_definition_file, &parameter.name) {
-                Ok(()) =>       ExitCode::from(0),
+                Ok(()) => ExitCode::from(0),
                 Err(error) => {
-                    println!("{:#?}",error);
+                    println!("{:#?}", error);
                     ExitCode::from(1)
                 }
-
             }
         }
     }
-
-   
-
 }

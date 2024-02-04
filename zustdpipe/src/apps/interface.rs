@@ -1,11 +1,10 @@
-
 use super::error;
 
 use crate::jobs::interface::JobDefinition;
-use crate::pipeline::interface::PipelineDefinition;
 use crate::modules::interface::ModulesDefinition;
+use crate::pipeline::interface::PipelineDefinition;
 use serde::{Deserialize, Serialize};
-use std::{io};
+use std::io;
 
 use std::collections::HashMap;
 
@@ -29,8 +28,8 @@ pub trait AppManager {
 pub struct AppDefinition {
     pub general: AppDefinitionGeneral,
     pub modules: ModulesDefinition,
-    pub jobs: HashMap<String,JobDefinition>,
-    pub pipelines: HashMap<String,PipelineDefinition>,
+    pub jobs: HashMap<String, JobDefinition>,
+    pub pipelines: HashMap<String, PipelineDefinition>,
 }
 
 /// General properties of an app in its definition
