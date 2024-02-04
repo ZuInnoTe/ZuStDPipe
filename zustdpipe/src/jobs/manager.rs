@@ -1,10 +1,9 @@
 use std::{collections::HashMap};
-use tokio::net::unix::pipe;
 use uuid::Uuid;
 
-use crate::{error::error::GeneralError, modules::interface::{ModuleDefinitionError, ModuleManager, ModuleManagerList, ModulesDefinition}, pipeline::interface::PipelineDefinition};
+use crate::{error::error::GeneralError, modules::interface::{ModuleDefinitionError, ModuleManager, ModulesDefinition}, pipeline::interface::PipelineDefinition};
 
-use super::interface::{Job, JobDefinition, JobList, JobManager, JobRunError, JobValidationError};
+use super::interface::{JobDefinition, JobList, JobManager, JobRunError, JobValidationError};
 
 
 
@@ -19,10 +18,11 @@ impl JobManager for JobList {
         for process in &pipeline_definition.processs {
             for (process_name,process_definition) in process.iter() {
                 println!("Process name: {}",process_name);
-                let module_instance=match self.module_manager_list.get_module_instance(process_definition) {
+                let mut module_instance=match self.module_manager_list.get_module_instance(process_definition) {
                     Ok(module_instance) => module_instance,
                     Err(error) => return Err(JobRunError::JobModuleDefinitionError(error))
                 };
+                //module_instance.exec_func("test_func".to_string(),Vec::new());
 
             }
         }

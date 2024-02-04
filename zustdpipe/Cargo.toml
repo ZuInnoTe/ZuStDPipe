@@ -13,7 +13,7 @@ crate-type=["cdylib","rlib"]
 
 [dependencies]
 zustdpipe-modules-library = {path = "../zustdpipe-modules-library"}
-arrow = { version = "49.0.0", default-features = false, features = ["ipc"] }
+arrow = { version = "50.0.0", default-features = false, features = ["ipc"] }
 bincode = {version = "1.3.3"}
 bloomfilter = {version = "1.0.9"}
 flate2 = { version = "1.0.25"}

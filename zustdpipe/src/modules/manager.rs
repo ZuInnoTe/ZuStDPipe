@@ -1,14 +1,12 @@
-use std::collections::HashMap;
-use std::fmt;
+
 use std::path::Path;
 
-use zustdpipe_modules_library::interfaces::process;
 
 use crate::error::error::GeneralError;
-use crate::pipeline::interface::{ProcessDefinition, ProcessModuleRequirements};
+use crate::pipeline::interface::ProcessDefinition;
 use super::library::wasm::WASMLibraryManager;
 use super::interface::{ModuleDefinitionError, ModuleManager, ModuleManagerList, ModuleType, ModulesDefinition};
-use super::library::interface::{Library,LibraryDefinitionError,LibraryManager};
+use super::library::interface::{Library,LibraryManager};
 
 /// Manage modules
 impl ModuleManager for ModuleManagerList{
@@ -89,7 +87,7 @@ fn get_module_paths(modules_definition: &ModulesDefinition) -> Result<Vec<String
 /// Searches the module paths and returns the first module found matching the name
 fn find_module_in_module_paths(module_paths: &Vec<String>,name:&String) -> Result<String,ModuleDefinitionError> {
     for module_path in module_paths {
-        let mut full_path = format!("{}/{}",module_path,name);
+        let full_path = format!("{}/{}",module_path,name);
         let current_module_full_path = Path::new(&full_path);
         if current_module_full_path.exists()  {
             return Ok(full_path);

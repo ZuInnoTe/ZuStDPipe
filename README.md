@@ -1,10 +1,14 @@
 # Disclaimer
 This repository is currently a pre-alpha version. It is aimed at my own personal research and not suitable for any purpose. There will be a mature alpha version that can be used by others. Until then the source code, the interfaces, the modules can change arbitrarily without notice.
 # Introduction
-ZuStDPipe (Zukunft Stateful Data Pipelines) is a library and ecosystem for lightweight highly modular stateful datapipelines for embedded systems to large scale clusters.
+ZuStDPipe (Zukunft Stateful Data Pipelines) is a library and ecosystem for lightweight highly modular stateful data pipelines for embedded systems to large scale clusters.
+
+The key advantage is that you can address data flows instead of control flows. Data flows have multiple advantages compared to control-flows for data processing, such as better performance due to massive parallization, simpler description and maintenance.
+
 The core of ZuStDPipe is highly modular and users may decide which module to include depending on the system as well as usage context. 
 Due to the modularity it can run  small embedding devices up to large scale clusters consisting of millions of nodes. Furthermore, thanks to the modularity you can
-integrate any stateful data pipelinees, such as search indexes for any type of document, such as text or images.
+integrate any stateful data pipelinees, such as search indexes for any type of document, such as text or images. However, they are also very suitable for structured data processing.
+
 It is written in Rust for safe, multi-platform and low resource usage applications. The WebAssembly (WASM)/WASM System Interface (WASI) ecosystem provides the foundation to run them securely everywhere.
 
 One important aspect of modularization is that it is easier to get rid of modules not needed anymore or to refactor the software. The objective here is that the software does not get bloated more and more, but with each release functionality can simply be removed. A hope is that in the future it is able to run on very small devices that are decades old and for which no more sustainable replacement is possible.

@@ -1,18 +1,13 @@
 //! Provide some generic wasm functions to allow zustdp to request memory from the module to share parameters, (meta-)data and reading feedback
 
-use std::rc::Rc;
 use std::cell::Cell;
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::io::BufReader;
-use std::io::Read;
 use std::mem::ManuallyDrop;
-use std::slice;
 
 
 use arrow::ipc::reader::StreamReader;
-use arrow::ipc::writer::StreamWriter;
-use arrow::record_batch::RecordBatch;
 
 
 // Global variable to keep track of allocated memory

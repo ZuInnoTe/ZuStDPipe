@@ -2,17 +2,10 @@
 //! Specific parts of apps are delegated to the corresponding ZuSearch modules (e.g. search, pipelines)
 
 use serde_yaml;
-use std::{fmt, io};
-
-use std::collections::HashMap;
+use std::io;
 
 use super::error;
 use super::interface::{AppManager, AppList, AppDefinition};
-
-
-
-
-
 
 
 /// Managing the definition of apps in-memory

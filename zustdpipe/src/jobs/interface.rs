@@ -3,7 +3,6 @@ use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
 use crate::error::error::GeneralError;
-use crate::modules::library::interface::LibraryDefinitionError;
 use crate::pipeline::interface::PipelineDefinition;
 
 use crate::modules::interface::{ModuleDefinitionError, ModuleManagerList, ModulesDefinition};
