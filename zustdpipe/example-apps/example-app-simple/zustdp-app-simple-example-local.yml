@@ -11,7 +11,7 @@ jobs:
     trigger: manual
 pipelines:
     example_1:
-        processs: 
+        process: 
           - echo_test:
               module: 
                 name: zustdp_module_process_echo.wasm

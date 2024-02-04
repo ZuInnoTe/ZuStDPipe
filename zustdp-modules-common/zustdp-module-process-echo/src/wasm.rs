@@ -15,6 +15,7 @@ use zustdpipe_modules_library::modules;
 
 /// This is the raw entry function into any WebAssembly module
 /// It takes care that the module parameters and data are passed through the serialization framework and that the answer from the module is provided back as a pointer
+#[no_mangle]
 pub extern "C" fn zustdp_module_wasm_raw_process_entry(
     meta_data_offset: *mut u32,
     meta_data_size: u32,

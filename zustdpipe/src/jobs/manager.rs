@@ -21,17 +21,18 @@ impl JobManager for JobList {
             Err(error) => return Err(JobRunError::JobValidationError(error)),
         };
         let job_id = Uuid::new_v4();
-        for process in &pipeline_definition.processs {
+        for process in &pipeline_definition.process {
             for (process_name, process_definition) in process.iter() {
                 println!("Process name: {}", process_name);
-                let _module_instance = match self
+                let mut module_instance = match self
                     .module_manager_list
                     .get_module_instance(process_definition)
                 {
                     Ok(module_instance) => module_instance,
                     Err(error) => return Err(JobRunError::JobModuleDefinitionError(error)),
                 };
-                //module_instance.exec_func("test_func".to_string(),Vec::new());
+                module_instance.exec_func(Vec::new()).unwrap();
+
             }
         }
 

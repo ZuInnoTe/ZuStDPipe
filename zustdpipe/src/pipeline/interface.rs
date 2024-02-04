@@ -6,7 +6,7 @@ use crate::modules::interface::ModuleType;
 /// Deifinition of a single pipeline
 #[derive(Deserialize, Serialize, Clone)]
 pub struct PipelineDefinition {
-    pub processs: Vec<HashMap<String, ProcessDefinition>>,
+    pub process: Vec<HashMap<String, ProcessDefinition>>,
 }
 
 #[derive(Deserialize, Serialize, Clone, Debug)]

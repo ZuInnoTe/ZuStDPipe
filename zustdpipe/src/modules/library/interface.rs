@@ -21,7 +21,6 @@ pub struct LibraryInstanceError;
 pub trait Library {
     fn exec_func(
         &mut self,
-        name: String,
         serialized_data: Vec<u8>,
     ) -> Result<Vec<u8>, LibraryInstanceError>;
 }

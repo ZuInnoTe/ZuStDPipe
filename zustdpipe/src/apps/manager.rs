@@ -13,8 +13,8 @@ impl AppManager for AppList {
     ///
     /// # Examples
     /// ```
-    /// use zustdpipe::app::manager;
-    /// let mut appmgr: manager::AppList = manager::AppManager::new();
+    /// use zustdpipe::apps::interface;
+    /// let mut appmgr: interface::AppList = interface::AppManager::new();
     /// ```
     fn new() -> AppList
     where
@@ -62,9 +62,9 @@ impl AppManager for AppList {
 #[cfg(test)]
 mod tests {
     const MINIMAL_APP_VALID_STRING: &str =
-        "general:\n name: \"ZuSearch Example App\"\n app_definition_version: 0\n";
+        "general:\n name: \"ZuStdPipe Example App\"\n app_definition_version: 0\nmodules:\njobs:\npipelines:\n";
     const MINIMAL_APP_INVALID_APP_STRING: &str =
-        "special:\n name: \"ZuSearch Example App\"\n app_definition_version: 0\n";
+        "special:\n name: \"ZuStdPipe Example App\"\n app_definition_version: 0\nmodules:\njobs:\npipelines:\n";
     const MINIMAL_APP_INVALID_YAML_STRING: &str = "test\ntest";
 
     #[test]
@@ -77,7 +77,7 @@ mod tests {
         // Load minimal app definition into memory
         let mut appmgr: crate::apps::manager::AppList = crate::apps::manager::AppManager::new();
         appmgr.add(str_reader).unwrap();
-        const EXPECTED_APP_NAME: &str = "ZuSearch Example App";
+        const EXPECTED_APP_NAME: &str = "ZuStdPipe Example App";
         let actual_app_name: &str = &appmgr.get(0).general.name;
         assert_eq!(
             actual_app_name, EXPECTED_APP_NAME,

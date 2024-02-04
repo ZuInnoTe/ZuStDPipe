@@ -19,15 +19,14 @@ pub struct WASMLibrary {
 impl interface::Library for WASMLibrary {
     fn exec_func(
         &mut self,
-        name: String,
         _serialized_data: Vec<u8>,
     ) -> Result<Vec<u8>, interface::LibraryInstanceError> {
         // make serialized data available to function
         // call function
         let func_def = &self
             .instance
-            .get_func(&mut self.store, &name)
-            .expect(format!("`{}` was not an exported function", name).as_str());
+            .get_func(&mut self.store, "zustdp_module_wasm_raw_process_entry")
+            .expect(format!("`{}` was not an exported function", "zustdp_module_wasm_raw_process_entry").as_str());
         let func_validated = func_def.typed::<(), u64>(&self.store).unwrap();
         let _result = func_validated.call(&mut self.store, ()).unwrap();
         // provide result back
@@ -161,7 +160,7 @@ mod tests {
         assert_eq!(&result_simple_wat_library.path, SIMPLE_WAT_PATH);
         // try to call function
         let param: Vec<u8> = Vec::new();
-        let result_func = result_simple_wat_library.exec_func("simple".to_string(), param);
+        let result_func = result_simple_wat_library.exec_func( param);
         Ok(())
     }
 }

@@ -22,7 +22,7 @@ pub fn validate_application_definition_file(
     println!("Number of pipelines: {}", &appmgr.get(0).pipelines.len());
     for (name, definition) in &appmgr.get(0).pipelines {
         println!("Pipeline name: {}", &name);
-        for process in &definition.processs {
+        for process in &definition.process {
             for (process_name, process_definition) in process.iter() {
                 println!("Process name: {}", process_name);
             }

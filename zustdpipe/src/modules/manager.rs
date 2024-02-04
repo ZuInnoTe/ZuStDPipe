@@ -14,8 +14,10 @@ impl ModuleManager for ModuleManagerList {
     ///
     /// # Examples
     /// ```
-    /// use zustdpipe::modules::manager;
-    /// let mut modulemgr: manager::ModuleManagerList = manager::ModuleManager::new();
+    /// use zustdpipe::modules::interface;
+    /// let wasm_module_path = vec!(".".to_string());
+    /// let modules_definition = zustdpipe::modules::interface::ModulesDefinition {wasm: Some((interface::WasmModulesDefinition {module_path_base: wasm_module_path}))};
+    /// let mut modulemgr: interface::ModuleManagerList = interface::ModuleManager::new(&modules_definition).expect("Wrong module definition");
     /// ```
     fn new(
         modules_definition: &ModulesDefinition,
