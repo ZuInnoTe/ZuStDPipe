@@ -4,10 +4,12 @@ use std::cell::Cell;
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::io::BufReader;
+use std::io::BufWriter;
 use std::mem::ManuallyDrop;
 
 
 use arrow::ipc::reader::StreamReader;
+use arrow::ipc::writer::StreamWriter;
 
 
 // Global variable to keep track of allocated memory
@@ -100,7 +102,41 @@ pub fn convert_raw_memory_to_arrow(    raw_memory_offset: *mut u32,
         }
 }
 
- /// Create an error message in Arrow format
- pub fn create_error_response_arrow_data() {
 
- }
+/// Converts an arrow StreamWriter to a raw memory pointer 
+/// # Arguments
+/// * `stream_writer` - Arrow StreamWriter
+/// returns a u32 pointing to a memory location containing an u32 pointer and another u32 containing the size of the data
+pub fn convert_arrow_to_raw_memory(stream_writer: StreamWriter<Vec<u8>>) -> u32 {
+    let serialized_result_batch: Vec<u8> = stream_writer.into_inner().unwrap();
+    // allocate memory for the answer
+    let serialized_result_batch_alloc: ManuallyDrop<Box<[u8]>> =
+        ManuallyDrop::new(serialized_result_batch.into_boxed_slice());
+    let serialized_result_batch_alloc_len: usize = serialized_result_batch_alloc.len();
+
+    let serialized_result_batch_ptr = allocate(
+        serialized_result_batch_alloc_len,
+        serialized_result_batch_alloc,
+    );
+    // return position of WASM memory where we can find a offset, length pair
+    let mut vec_meta: Vec<u8> = Vec::new();
+    let serialized_result_batch_ptr_array: [u8; (usize::BITS / 8) as usize] =
+        (serialized_result_batch_ptr as usize).to_le_bytes();
+    let serialized_result_batch_alloc_len: [u8; (usize::BITS / 8) as usize] =
+        serialized_result_batch_alloc_len.to_le_bytes();
+    for byte in serialized_result_batch_ptr_array {
+        vec_meta.push(byte);
+    }
+    for byte in serialized_result_batch_alloc_len {
+        vec_meta.push(byte);
+    }
+    let serialized_result_batch_meta: Box<[u8]> = vec_meta.into_boxed_slice();
+    let serialized_result_batch_meta_len: usize = serialized_result_batch_meta.len();
+    let serialized_result_batch_meta_ptr = allocate(
+        serialized_result_batch_meta_len,
+        ManuallyDrop::new(serialized_result_batch_meta),
+    );
+
+    return serialized_result_batch_meta_ptr as u32;
+
+}

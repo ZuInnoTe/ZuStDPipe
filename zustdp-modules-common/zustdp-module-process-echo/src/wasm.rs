@@ -1,11 +1,11 @@
-use std::cell::Cell;
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::mem::ManuallyDrop;
-use std::sync::Arc;
 
 
-use arrow::ipc::reader::StreamReader;
+
+
+
+
+
+
 
 
 use super::echoprocess::EchoProcess;
@@ -22,18 +22,18 @@ pub extern "C" fn zustdp_module_wasm_raw_process_entry(
     data_offset: *mut u32,
     data_size: u32,
 ) -> u32 {
-    let mut input_arrow_meta_data= match modules::wasm::convert_raw_memory_to_arrow(meta_data_offset,meta_data_size) {
+    let _input_arrow_meta_data= match modules::wasm::convert_raw_memory_to_arrow(meta_data_offset,meta_data_size) {
         Some(data) => data,
         None => return 0
     };
-    let mut input_arrow_data= match modules::wasm::convert_raw_memory_to_arrow(data_offset,data_size) {
+    let _input_arrow_data= match modules::wasm::convert_raw_memory_to_arrow(data_offset,data_size) {
         Some(data) => data,
         None => return 0
     };
     // check parametes
     //for item in input_arrow_meta_data
     // call function
-    let process: EchoProcess = Process::new();
+    let _process: EchoProcess = Process::new();
 
     // convert result arrow to raw memory
     return 0;

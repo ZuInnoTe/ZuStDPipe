@@ -1,10 +1,11 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, sync::Arc};
+use arrow::datatypes::{DataType, Field, Schema};
 use uuid::Uuid;
 
 use crate::{
     error::error::GeneralError,
     modules::interface::{ModuleDefinitionError, ModuleManager, ModulesDefinition},
-    pipeline::interface::PipelineDefinition,
+    pipeline::interface::{PipelineDefinition, ProcessDefinition},
 };
 
 use super::interface::{JobDefinition, JobList, JobManager, JobRunError, JobValidationError};
@@ -31,12 +32,15 @@ impl JobManager for JobList {
                     Ok(module_instance) => module_instance,
                     Err(error) => return Err(JobRunError::JobModuleDefinitionError(error)),
                 };
-                module_instance.exec_func(Vec::new()).unwrap();
-
+               // process_definition.parameters
+                let serialized_answer=match module_instance.exec_func(vec!(1u8),vec!(1u8)) {
+                    Ok(serialized_data) => serialized_data,
+                    Err(error) => return Err(JobRunError::JobModuleInstantiationError(error))
+                };
             }
         }
 
-        return Ok(job_id.to_string());
+      Ok(job_id.to_string())
     }
 
     // include job metadata
@@ -69,4 +73,55 @@ pub fn validate_job(
         }
     };
     Ok(pipeline_definition.clone())
+}
+
+/// Converts metadata for a process into arrow format
+/// # Arguments
+/// * `process_definition` - process definition
+fn metadata_to_arrow(process_definition: &ProcessDefinition) -> Vec<u8> {
+   // define schema
+   let schema = Schema::new(vec![
+    Field::new(
+        "parameters",
+        DataType::Map(Arc::new(
+            Field::new("entries",
+            DataType::Struct(arrow::datatypes::Fields::from(vec![Field::new(
+            "keys",
+            DataType::Utf8,
+            false,
+        ),Field::new(
+            "values",
+            DataType::Utf8,
+            false,
+        )])),false)),false),
+    false)
+]);
+//let mut decoder = ReaderBuilder::new(Arc::new(schema)).build_decoder().unwrap();
+
+// add values
+/*for param in process_definition.parameters {
+    param.
+}
+let command = StringArray::from(vec!["test"]);
+
+let parameters = StructArray::from(vec![(
+    Arc::new(Field::new("filename", DataType::Utf8, false)),
+    Arc::new(StringArray::from(vec!["test.txt"])) as ArrayRef,
+)]);
+// build a record batch
+let batch = RecordBatch::try_new(
+    Arc::new(schema.clone()),
+    vec![Arc::new(command), Arc::new(config)],
+)
+.unwrap();
+// serialize it
+let buffer: Vec<u8> = Vec::new();
+
+let mut stream_writer = StreamWriter::try_new(buffer, &schema).unwrap();
+stream_writer.write(&batch).unwrap();
+
+let serialized_batch = stream_writer.into_inner().unwrap();
+return serialized_batch;
+*/
+Vec::new()
 }

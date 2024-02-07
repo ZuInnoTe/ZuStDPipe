@@ -8,7 +8,7 @@ impl Process for EchoProcess {
         return EchoProcess {};
     }
 
-    fn execute(&self, param: Parameters) -> Option<Result> {
+    fn execute(&self, _param: Parameters) -> Option<Result> {
         println!("Hallo");
         None
     }

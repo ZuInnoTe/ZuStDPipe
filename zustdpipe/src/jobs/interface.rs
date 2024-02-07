@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
 use crate::error::error::GeneralError;
+use crate::modules::library::interface::LibraryInstanceError;
 use crate::pipeline::interface::PipelineDefinition;
 
 use crate::modules::interface::{ModuleDefinitionError, ModuleManagerList, ModulesDefinition};
@@ -31,6 +32,7 @@ pub enum JobRunError {
     JobStartError(GeneralError),
     JobValidationError(JobValidationError),
     JobModuleDefinitionError(ModuleDefinitionError),
+    JobModuleInstantiationError(LibraryInstanceError),
 }
 
 /// Properties of a running job

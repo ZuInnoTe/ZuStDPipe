@@ -15,12 +15,15 @@ pub enum LibraryDefinitionError {
 
 /// Error in case of an issue with a Library Instance
 #[derive(Debug, Clone)]
-pub struct LibraryInstanceError;
+pub enum LibraryInstanceError {
+    InstantiationError(GeneralError),
+}
 
 /// Represents a dynamically loaded library
 pub trait Library {
     fn exec_func(
         &mut self,
+        serialized_metadata: Vec<u8>,
         serialized_data: Vec<u8>,
     ) -> Result<Vec<u8>, LibraryInstanceError>;
 }
